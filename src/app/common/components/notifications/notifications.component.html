@@ -1,0 +1,61 @@
+<div fxLayout fxLayoutAlign="center center" class="dialog">
+
+    <!-- preloader -->
+    @if (data.type === 'preloader') {
+    <div fxLayout="column" fxLayoutAlign="center center">
+        <mat-spinner></mat-spinner>
+        <span>Espere...</span>
+    </div>
+    }
+
+    <!-- info -->
+    @if (data.type === 'info') {
+    <div fxLayout="column" fxLayoutAlign="center center">
+        <!-- title -->
+        <h1 mat-dialog-title>{{data.data.title}}</h1>
+        <!-- content -->
+        <div mat-dialog-content class="alert">
+            <p [innerHTML]="data.data.message"></p>
+        </div>
+        <div mat-dialog-actions fxLayout fxLayoutAlign="center center">
+            <button mat-button mat-dialog-close>Cerrar</button>
+        </div>
+    </div>
+    }
+
+    <!-- error -->
+    @if (data.type === 'error') {
+    <div fxLayout="column" fxLayoutAlign="center center">
+        <!-- title -->
+        <h1 mat-dialog-title>{{data.data.title}}</h1>
+        <!-- content -->
+        <div mat-dialog-content class="alert">
+            <p class="alert-error" [innerHTML]="data.data.message"></p>
+        </div>
+        <div mat-dialog-actions fxLayout fxLayoutAlign="center center">
+            <button mat-button mat-dialog-close>Cerrar</button>
+        </div>
+    </div>
+    }
+
+    <!-- confirm -->
+    @if (data.type === 'confirm') {
+    <div fxLayout="column" fxLayoutAlign="center center">
+        <!-- title -->
+        <h1 mat-dialog-title>{{data.data.title}}</h1>
+        <!-- content -->
+        <div mat-dialog-content class="alert">
+            <p [innerHTML]="data.data.message"></p>
+        </div>
+        <!-- actions -->
+        <div mat-dialog-actions fxLayoutAlign="space-around center">
+            @for (item of data.data.buttons;track item) {
+            <button mat-button [color]="item.color" (click)="confirmResponse(item)">
+                {{item.text}}
+            </button>
+            }
+        </div>
+    </div>
+    }
+
+</div>

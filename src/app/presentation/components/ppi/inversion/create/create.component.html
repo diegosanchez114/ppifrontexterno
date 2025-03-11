@@ -1,0 +1,26 @@
+<mat-card>
+    <h2 mat-dialog-title>Crear necesidad de inversión PPI</h2>
+    <mat-dialog-content>
+        <form fxLayout="column" [formGroup]="formGroup">
+            <mat-form-field>
+                <mat-label>Valor inversión</mat-label>
+                <input matInput placeholder="Valor inversión" formControlName="valorInversion" onlyNumbers>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Tipo obra</mat-label>
+                <input matInput placeholder="Tipo obra" formControlName="tipoObra">
+            </mat-form-field>           
+
+            <mat-form-field>
+                <mat-label>Observación</mat-label>
+                <textarea matInput placeholder="Observación" formControlName="descripcion"></textarea>
+            </mat-form-field>            
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancelar</button>
+        <button mat-raised-button color="primary" cdkFocusInitial [disabled]="!formGroup.valid"
+            (click)="onSubmit()">Crear</button>
+    </mat-dialog-actions>
+</mat-card>

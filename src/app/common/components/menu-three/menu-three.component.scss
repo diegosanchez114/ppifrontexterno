@@ -1,0 +1,21 @@
+.menu-container {
+    background-color: #f3f3f3;
+}
+
+.close-session {
+
+    button {
+        mat-icon {
+            color: #ea5959;
+        }
+    }
+
+    span {
+        color: #ea5959;
+    }    
+    
+}
+
+.item-button {
+    cursor: pointer !important;
+}

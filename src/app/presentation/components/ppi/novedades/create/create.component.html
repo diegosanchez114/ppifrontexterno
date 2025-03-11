@@ -1,0 +1,23 @@
+<div fxLayout="column" fxLayoutGap="20px" class="container-form">
+    <h2 mat-dialog-title>Crear novedad</h2>
+
+    <form fxLayout="column" fxLayoutGap="20px" [formGroup]="formGroup">   
+        <mat-form-field>
+            <mat-label>Fecha de novedad</mat-label>
+            <input matInput [matDatepicker]="pickerInicio" formControlName="fecha">
+            <mat-datepicker-toggle matIconSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+            <mat-datepicker #pickerInicio></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Novedad</mat-label>
+            <textarea matInput placeholder="Novedad" formControlName="descripcion"></textarea>
+            <mat-hint>{{formGroup.get('descripcion')!.value.length}} / 1000</mat-hint>
+        </mat-form-field>
+    </form>
+
+    <div fxLayout fxLayoutAlign="end">
+        <button mat-raised-button color="primary" [disabled]="!formGroup.valid"
+            (click)="onSubmit()">Crear</button>
+    </div>
+</div>

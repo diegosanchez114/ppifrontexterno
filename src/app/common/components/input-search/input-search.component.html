@@ -1,0 +1,9 @@
+<mat-form-field>
+	<mat-label>{{placeholder ? placeholder : 'Criterio'}}</mat-label>
+	<input 
+		matInput 
+		[formControl]="control"
+		[placeholder]="placeholder ? placeholder : 'Criterio'" 
+		(ngModelChange)="this.searchUpdate.next($event)">
+	<mat-icon matSuffix>{{icon ? icon : 'search'}}</mat-icon>
+</mat-form-field>

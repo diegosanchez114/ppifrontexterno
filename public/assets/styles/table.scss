@@ -1,0 +1,25 @@
+.container-padding-tables {
+    padding: 20px;
+}
+
+.table-wrapper {
+    width: 100%;
+    min-height: 400px;
+    height: 400px;
+    overflow: auto; 
+}
+
+.responsive-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.responsive-table th, .responsive-table td {
+    padding: 8px;
+    text-align: left;
+}
+
+.responsive-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}

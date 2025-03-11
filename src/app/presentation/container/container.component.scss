@@ -1,0 +1,65 @@
+.header {
+    height: 30px;
+    background-color: var(--color-global-govco);
+    
+    img {
+        width: 70px;
+    }
+}
+
+.subheader {
+    background-color: var(--color-secondary1);
+    color: var(--color-neutral);
+
+    mat-icon {
+        color: var(--color-neutral);
+    }
+}
+
+.container {    
+    height: calc(100vh - 88px);
+    overflow: auto;
+    background-color: #f7f7f7;    
+
+    .sidenav-container {        
+        width: 100%;
+        height: 100%;   
+        
+        .drawer {
+            width: 260px;
+            background-color: #f3f3f3;
+        }
+    }
+
+    .panel-user {
+        background-color: #bfbfbf;
+        padding: 24px;
+
+        .avatar {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            background-color: #3f51b5;
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;            
+
+            mat-icon {
+                transform: translateY(12px);
+            }
+        }
+
+        .avatar-name {
+            font-weight: 500;
+        }
+    }
+}
+
+.container-route {
+    padding: 24px;
+    height: calc(100vh - 150px);
+}
+
+.container-drawer {
+    padding: 10px;
+}

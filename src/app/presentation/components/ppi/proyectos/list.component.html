@@ -1,0 +1,111 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Plan Plurianual de Inversiones</mat-card-title>
+    </mat-card-header>
+
+    <!-- content -->
+    <div fxLayout="column" class="container-padding-tables">
+        <input-search-component (changeInput)="changeSearch($event)"></input-search-component>
+
+        <div class="table-wrapper">
+            <table mat-table [dataSource]="data()" class="responsive-table">
+                <!-- corredor -->
+                <ng-container matColumnDef="codCorredor" sticky>
+                    <th mat-header-cell *matHeaderCellDef> Código corredor </th>
+                    <td mat-cell *matCellDef="let element"> {{element.codigoCorredor}} </td>
+                </ng-container>
+
+                <!-- nombre largo -->
+                <ng-container matColumnDef="nombreLargo" sticky>
+                    <th mat-header-cell *matHeaderCellDef> Nombre original </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombreLargo}} </td>
+                </ng-container>
+
+                <!-- nombre corto -->
+                <ng-container matColumnDef="nombreCorto" sticky>
+                    <th mat-header-cell *matHeaderCellDef> Nombre corto </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombreCorto}} </td>
+                </ng-container>
+
+                <!-- entidad -->
+                <ng-container matColumnDef="entidad" sticky>
+                    <th mat-header-cell *matHeaderCellDef> Entidad </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombreEntidad}} </td>
+                </ng-container>
+
+                <!-- categoria -->
+                <!-- <ng-container matColumnDef="categoria" sticky>
+                    <th mat-header-cell *matHeaderCellDef> Categoria </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombreCategoria}} </td>
+                </ng-container> -->
+
+                <!-- modo -->
+                <!-- <ng-container matColumnDef="modo" sticky>
+                    <th mat-header-cell *matHeaderCellDef> Modo </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombreModo}} </td>
+                </ng-container> -->
+
+                <!-- tiene estudios y diseño -->
+                <!-- <ng-container matColumnDef="estudiosDisenio" sticky>
+                    <th mat-header-cell *matHeaderCellDef> Tiene estudios y diseño </th>
+                    <td mat-cell *matCellDef="let element">
+                        @if (element.tieneEstudiosYDisenio) {
+                        <mat-icon>check</mat-icon>
+                        }
+                    </td>
+                </ng-container> -->
+
+                <!-- porcentajeEjecutado -->
+                <!-- <ng-container matColumnDef="porcentajeEjecutado" sticky>
+                    <th mat-header-cell *matHeaderCellDef> Total %<br>ejecutado </th>
+                    <td mat-cell *matCellDef="let element"> %{{element.totalPorcentajeEjecutado}} </td>
+                </ng-container> -->
+
+                <!-- valorTotalEjecutado -->
+                <!-- <ng-container matColumnDef="valorTotalEjecutado" sticky>
+                    <th mat-header-cell *matHeaderCellDef> Total valor<br>ejecutado </th>
+                    <td mat-cell *matCellDef="let element"> {{element.totalValorEjecutado |
+                            currency:'COP':'symbol':'1.2-2':'es-CO'}} </td>
+                </ng-container> -->
+
+                <!-- valorTotalContratos -->
+                <!-- <ng-container matColumnDef="valorTotalContratos" sticky>
+                    <th mat-header-cell *matHeaderCellDef> Total valor<br>proyectos </th>
+                    <td mat-cell *matCellDef="let element"> {{element.totalValorProyecto |
+                            currency:'COP':'symbol':'1.2-2':'es-CO'}} </td>
+                </ng-container> -->
+
+                <!-- tiene contratos -->
+                <ng-container matColumnDef="contratos" stickyEnd>
+                    <th mat-header-cell *matHeaderCellDef width="50px">Tiene contratos activos o en ejecución?</th>
+                    <td mat-cell *matCellDef="let element">
+                        <mat-slide-toggle [(ngModel)]="element.tieneContratos" (ngModelChange)="validateCantContracts(element)">
+                            {{element.tieneContratos ? 'Si (' + element.cantContratos + ')' : 'No'}}
+                        </mat-slide-toggle>                        
+                    </td>
+                </ng-container>
+
+                <!-- menu -->
+                <ng-container matColumnDef="actions" stickyEnd>
+                    <th mat-header-cell *matHeaderCellDef width="50px"></th>
+                    <td mat-cell *matCellDef="let element">
+                        @if (!element.tieneContratos && element.tieneContratosObservacion) {
+                            <button mat-icon-button matTooltip="Ver observación" (click)="showObservation(element)">
+                                <mat-icon>visibility</mat-icon>
+                            </button> 
+                        }
+                        <button mat-icon-button matTooltip="Ver contratos" [routerLink]="['/upit/ppi/proyectos/' + element.idProyecto + '/contratos']">
+                            <mat-icon>description</mat-icon>
+                        </button>                        
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+    <mat-paginator showFirstLastButtons [length]="length()" [pageSize]="pageSize()" [pageSizeOptions]="pageSizeOptions"
+        (page)="handlePageEvent($event)">
+    </mat-paginator>
+</mat-card>

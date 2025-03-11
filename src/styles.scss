@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('./../public/assets/styles/colors.scss');
+@import url('./../public/assets/styles/table.scss');
+
+html, body { height: 100%; }
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+    overflow: hidden;
+}
+
+.mdc-dialog__surface {
+    border: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+}
