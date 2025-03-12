@@ -18,6 +18,8 @@ export class AuthService {
   #activeAccount: any = {};
   #entityId: string = '';
 
+  private token: string = '';
+
   constructor() {
     const dataStorage = this.#storage.retrieveData(StorageConstants.STORAGE_ENTITY_ID);
     if (dataStorage) this.#entityId = dataStorage;
@@ -106,8 +108,13 @@ export class AuthService {
       account: accounts[0],
       scopes: []
     }).then((response) => {
+      this.token = response.accessToken;
       this.saveSession(accounts[0]);
     });
+  }
+
+  getToken(): string {
+    return this.token;
   }
 
 

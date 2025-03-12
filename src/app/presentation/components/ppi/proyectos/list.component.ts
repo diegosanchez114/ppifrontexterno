@@ -52,7 +52,8 @@ export class ListComponent implements AfterViewInit {
   idEntity: string = '';
 
   ngAfterViewInit(): void {
-    this.idEntity = this.#authService.getEntityId;
+    //this.idEntity = this.#authService.getEntityId;
+    this.idEntity = '123e4567-e89b-12d3-a456-426614174000';
     this.getData();
   }
 
@@ -71,6 +72,7 @@ export class ListComponent implements AfterViewInit {
 
   getData() {
     this.#loadingService.show();
+    console.log('id ' + this.idEntity);
     this.#rest!.getAllByEntity(this.idEntity, this.search(), this.pageIndex() + 1, this.pageSize()).subscribe({
       next: (res: ResponseListDTO) => {
         this.#loadingService.hide();
