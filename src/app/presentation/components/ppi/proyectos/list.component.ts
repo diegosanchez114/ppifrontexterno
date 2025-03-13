@@ -52,8 +52,7 @@ export class ListComponent implements AfterViewInit {
   idEntity: string = '';
 
   ngAfterViewInit(): void {
-    //this.idEntity = this.#authService.getEntityId;
-    this.idEntity = '123e4567-e89b-12d3-a456-426614174000';
+    this.idEntity = this.#authService.getEntityId;    
     this.getData();
   }
 
