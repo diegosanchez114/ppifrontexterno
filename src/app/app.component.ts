@@ -6,8 +6,9 @@ import { AccountInfo, InteractionStatus } from '@azure/msal-browser';
 import { filter, Subject, takeUntil } from 'rxjs';
 import { ParametricaUsecaseService } from './domain/usecases/transversales/parametrica-usecase.service';
 import { ResponseDTO } from './common/dto/response.dto';
-import { API_GATEWAYS_PROVIDERS_PARAMETRICA_DI } from './common/providers/transversales-di';
+import { API_GATEWAYS_PROVIDERS_PARAMETRICA_DI, API_GATEWAYS_PROVIDERS_USUARIO_DI } from './common/providers/transversales-di';
 import { ParametricaModel } from './domain/models/transversales/parametrica';
+import { UsuarioUsecaseService } from './domain/usecases/transversales/usuario-usecase.service';
 
 const PARAMETRIC = 'LOGIN_DOMINIO';
 
@@ -19,7 +20,9 @@ const PARAMETRIC = 'LOGIN_DOMINIO';
   styleUrl: './app.component.scss',
   providers: [
     ParametricaUsecaseService,
-    API_GATEWAYS_PROVIDERS_PARAMETRICA_DI
+    API_GATEWAYS_PROVIDERS_PARAMETRICA_DI,
+    UsuarioUsecaseService,
+    API_GATEWAYS_PROVIDERS_USUARIO_DI
   ]
 })
 export class AppComponent implements OnInit {
@@ -27,6 +30,7 @@ export class AppComponent implements OnInit {
   #auth = inject(AuthService);
   #msalBroadcastService = inject(MsalBroadcastService);
   #parametricaService = inject(ParametricaUsecaseService);
+  #usuarioService = inject(UsuarioUsecaseService);
   #msalAuthService = inject(MsalService);
 
   destroying$ = new Subject<void>();
@@ -42,6 +46,7 @@ export class AppComponent implements OnInit {
         const account = this.#msalAuthService.instance.getActiveAccount();
         if (!account) return;
         this.getEntityId(account);
+        this.getUser(account);
       });
 
 
@@ -69,5 +74,24 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
+  private getUser(account: AccountInfo) {
+    const token = account.idToken;
+    if (!token) return;
+    const dataToken = this.#auth.extractTokenInfo(token);    
+    console.log('dataToken ');
+    console.log(dataToken);
+    console.log('dataToken[preferred_username] ');
+    console.log(dataToken['preferred_username']);
+    this.#usuarioService.getByEmail(dataToken['preferred_username']).subscribe({
+      next: (res: ResponseDTO) => {
+        console.log('res');
+        console.log(res.data.entityId);
+        if (res.data.entityId) this.#auth.setEntityId = res.data.entityId;
+      }
+    });
+  }
+
+
 
 }
