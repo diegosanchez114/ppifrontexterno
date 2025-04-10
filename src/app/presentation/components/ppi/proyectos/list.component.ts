@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, Inject, inject, signal, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { FloatingButtonComponent } from '../../../../common/components/floating-button/floating-button.component';
 import { InputSearchComponent } from '../../../../common/components/input-search/input-search.component';
@@ -31,6 +31,8 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class ListComponent implements AfterViewInit {
 
+  #router = inject(Router);
+
   private _bottomSheet = inject(MatBottomSheet);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -52,8 +54,17 @@ export class ListComponent implements AfterViewInit {
   idEntity: string = '';
 
   ngAfterViewInit(): void {
-    this.idEntity = this.#authService.getEntityId;    
-    this.getData();
+    const interval = setInterval(() => {
+      this.idEntity = this.#authService.getEntityId;
+  
+      if (this.idEntity) {
+        console.log('idEntity obtenido:', this.idEntity);
+        clearInterval(interval); // Detenemos el intervalo cuando se obtiene el valor
+        this.getData(); // Llamamos a getData() cuando idEntity tiene un valor
+      } else {
+        console.warn('idEntity sigue vacío. Intentando nuevamente...');
+      }
+    }, 100); // Verifica cada 1 segundo
   }
 
   changeSearch(value: string) {
